@@ -1,0 +1,30 @@
+* To Profile a C/C++ App *
+==========================
+
+1. Compile with -pg flag
+
+    gcc -O0 -g -pg profile.c -o profile -lm
+
+    This will create a gmon.out file, which gprof will use.
+
+2. Run gprof
+
+    gprof ./profile gmon.out > profile.output
+
+3. Examine the Flat Profile
+
+    The flat profile shows the amount of time spent on each function
+
+    Note that for the profile app, we're spending ~55% of our time in the write function, which seems like a lot for such a simple function
+
+4. Examine the callgraph
+
+    Note how much time is being spent in each function, and the relationships between the functions
+
+5. Re-run with cachegrind to get more information
+
+    valgrind --tool=cachegrind ./profile
+
+    Ir - "instruction read" events
+
+    cg_annotate
